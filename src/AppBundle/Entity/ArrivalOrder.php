@@ -13,20 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
 class ArrivalOrder
 {
     /**
-     * @var guid
+     * @var int
      *
-     * @ORM\Column(name="id", type="guid")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ordercode", type="string", length=16)
-     */
-    private $orderCode;
 
     /**
      * @var \DateTime
@@ -56,20 +49,6 @@ class ArrivalOrder
      */
     private $notes;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="deposit", type="float")
-     */
-    private $deposit;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="pricerule_id", type="integer")
-     */
-    private $priceruleId;
-
 
     /**
      * Get id
@@ -81,29 +60,6 @@ class ArrivalOrder
         return $this->id;
     }
 
-    /**
-     * Set orderCode
-     *
-     * @param string $orderCode
-     *
-     * @return ArrivalOrder
-     */
-    public function setOrderCode($orderCode)
-    {
-        $this->orderCode = $orderCode;
-
-        return $this;
-    }
-
-    /**
-     * Get orderCode
-     *
-     * @return string
-     */
-    public function getOrderCode()
-    {
-        return $this->orderCode;
-    }
 
     /**
      * Set orderDate
@@ -199,54 +155,6 @@ class ArrivalOrder
     public function getNotes()
     {
         return $this->notes;
-    }
-
-    /**
-     * Set deposit
-     *
-     * @param string $deposit
-     *
-     * @return ArrivalOrder
-     */
-    public function setDeposit($deposit)
-    {
-        $this->deposit = $deposit;
-
-        return $this;
-    }
-
-    /**
-     * Get deposit
-     *
-     * @return string
-     */
-    public function getDeposit()
-    {
-        return $this->deposit;
-    }
-
-    /**
-     * Set priceruleId
-     *
-     * @param integer $priceruleId
-     *
-     * @return ArrivalOrder
-     */
-    public function setPriceruleId($priceruleId)
-    {
-        $this->priceruleId = $priceruleId;
-
-        return $this;
-    }
-
-    /**
-     * Get priceruleId
-     *
-     * @return int
-     */
-    public function getPriceruleId()
-    {
-        return $this->priceruleId;
     }
 }
 

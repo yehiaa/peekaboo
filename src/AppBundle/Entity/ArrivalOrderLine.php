@@ -13,48 +13,22 @@ use Doctrine\ORM\Mapping as ORM;
 class ArrivalOrderLine
 {
     /**
-     * @var guid
+     * @var int
      *
-     * @ORM\Column(name="id", type="guid")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="kidcode", type="string", length=16, nullable=true)
-     */
-    private $kidCode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="locker", type="string", length=32, nullable=true)
-     */
-    private $locker;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="kidname", type="string", length=128, nullable=true)
+     * @ORM\Column(name="kidname", type="string", length=128)
      */
     private $kidName;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="withnanny", type="boolean", nullable=true)
-     */
-    private $withNanny;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nannyname", type="string", length=128, nullable=true)
-     */
-    private $nannyName;
 
     /**
      * @var string
@@ -64,9 +38,9 @@ class ArrivalOrderLine
     private $notes;
 
     /**
-     * @var guid
+     * @var integer
      *
-     * @ORM\Column(name="arrivalorder_id", type="guid")
+     * @ORM\Column(name="arrivalorder_id", type="integer")
      */
     private $arrivalOrderId;
 
@@ -74,60 +48,13 @@ class ArrivalOrderLine
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set kidCode
-     *
-     * @param string $kidCode
-     *
-     * @return ArrivalOrderLine
-     */
-    public function setKidCode($kidCode)
-    {
-        $this->kidCode = $kidCode;
-
-        return $this;
-    }
-
-    /**
-     * Get kidCode
-     *
-     * @return string
-     */
-    public function getKidCode()
-    {
-        return $this->kidCode;
-    }
-
-    /**
-     * Set locker
-     *
-     * @param string $locker
-     *
-     * @return ArrivalOrderLine
-     */
-    public function setLocker($locker)
-    {
-        $this->locker = $locker;
-
-        return $this;
-    }
-
-    /**
-     * Get locker
-     *
-     * @return string
-     */
-    public function getLocker()
-    {
-        return $this->locker;
-    }
 
     /**
      * Set kidName
@@ -153,53 +80,6 @@ class ArrivalOrderLine
         return $this->kidName;
     }
 
-    /**
-     * Set withNanny
-     *
-     * @param boolean $withNanny
-     *
-     * @return ArrivalOrderLine
-     */
-    public function setWithNanny($withNanny)
-    {
-        $this->withNanny = $withNanny;
-
-        return $this;
-    }
-
-    /**
-     * Get withNanny
-     *
-     * @return bool
-     */
-    public function getWithNanny()
-    {
-        return $this->withNanny;
-    }
-
-    /**
-     * Set nannyname
-     *
-     * @param string $nannyName
-     *
-     * @return ArrivalOrderLine
-     */
-    public function setNannyName($nannyName)
-    {
-        $this->nannyName = $nannyName;
-
-        return $this;
-    }
-
-    /**
-     * Get nannyname
-     *
-     * @return string
-     */
-    public function getNannyName()
-    {
-        return $this->nannyName;
-    }
 
     /**
      * Set notes
@@ -242,7 +122,7 @@ class ArrivalOrderLine
     /**
      * Get arrivalorderId
      *
-     * @return guid
+     * @return int
      */
     public function getArrivalOrderId()
     {
