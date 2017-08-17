@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-3">PeekaBoo</h1>
+        <p class="lead">
+            Welcome to Kids arrival registration .
+        </p>
+        <p><a class="btn btn-lg btn-success" href="\create" role="button">Register Your arrival.</a></p>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}

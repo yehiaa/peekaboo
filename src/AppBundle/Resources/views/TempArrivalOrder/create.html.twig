@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{#{% block title %}create{% endblock %}#}
+
+{% block body %}
+    {% verbatim %}
+<div class="row" ng-app="arrivalApp">
+    <div class="col-12">
+        <div ng-view></div>
+    </div>
+</div>
+    {% endverbatim %}
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}
