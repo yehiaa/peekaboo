@@ -1,0 +1,39 @@
+<h2>Confirm .....</h2>
+<div class="row" ng-controller="confirmController as confirmctl">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Kid Name</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="kid in kids">
+            <tr>
+                <th scope="row">#</th>
+                <td>{{ kid.name }}</td>
+                <td>{{ kid.notes }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-12">
+                <form>
+                    <div class="form-group">
+                        <label for="kidName">kid name</label>
+                        <input type="text" class="form-control" ng-model='kidName' id="kidName" aria-describedby="kidNameHelp" placeholder="kid name">
+                        <small id="kidNameHelp" class="form-text text-muted">kid name</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea class="form-control" id="notes" ng-model='kidNotes' placeholder="notes"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" ng-click="saveKid()">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

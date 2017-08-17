@@ -1,0 +1,54 @@
+<h2>Step Two .....</h2>
+<div class="row" ng-controller="stepTwoController as step2ctl">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Kid Name</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="kid in kids">
+            <tr>
+                <th scope="row">#</th>
+                <td>{{ kid.name }}</td>
+                <td>{{ kid.notes }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="editKid(kid)">Edit</button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="removeKid(kid)">Remove</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-12">
+                <form name="kidForm" novalidate>
+                    <div class="form-group">
+                        <label for="kidName">kid name</label>
+                        <input type="text" class="form-control" ng-model='kidName'
+                               autocomplete="off"
+                               id="kidName"
+                               minlength="5"
+                               name="kidName"
+                               aria-describedby="kidNameHelp" placeholder="kid name" required="">
+                        <small id="kidNameHelp" class="form-text text-muted">kid name</small>
+                        <div ng-show="kidForm.$submitted || kidForm.kidName.$touched ">
+                            <div ng-show="kidForm.kidName.$error.required"><span class="text-danger">Kid name is required.</span></div>
+                            <div ng-show="kidForm.kidName.$error.minlength"><span class="text-danger">Too small.</span></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" ng-model='kidNotes' placeholder="notes"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" ng-click="saveKid()">Save</button>
+                    <hr>
+                    <button type="submit" class="btn btn-danger btn-lg btn-block" ng-click="confirm()">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,39 @@
+<h2>Step One .....</h2>
+<div class="row" ng-controller="stepOneController as step1ctl">
+    <div class="col-md-12">
+        <form name="deliverPersonForm" novalidate>
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" ng-model="name" class="form-control"
+                       name="name" id="name"
+                       aria-describedby="nameHelp"
+                       autocomplete="off"
+                       placeholder="name"  required>
+                <small id="nameHelp" class="form-text text-muted">delivery person name</small>
+                <div ng-show="deliverPersonForm.$submitted || deliverPersonForm.name.$touched">
+                    <div ng-show="deliverPersonForm.name.$error.required"><span class="text-danger">Your name is required.</span></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile</label>
+                <input type="text" class="form-control"
+                       name="mobile"
+                       id="mobile"
+                       ng-model="mobile"
+                       placeholder="mobile number"
+                       ng-minlength="11"
+                       ng-maxlength="11"
+                       autocomplete="off"
+                       ng-pattern="/^0[1-9]{10,10}$/;"
+                       required="">
+                <div ng-show="deliverPersonForm.$submitted || deliverPersonForm.mobile.$touched">
+                    <div ng-show="deliverPersonForm.mobile.$error.required"><span class="text-danger">Your mobile is required.</span></div>
+                    <div ng-show="deliverPersonForm.mobile.$error.maxlength"><span class="text-danger">too long.</span></div>
+                    <div ng-show="deliverPersonForm.mobile.$error.minlength"><span class="text-danger">too short.</span></div>
+                    <div ng-show="deliverPersonForm.mobile.$error.pattern"><span class="text-danger">invalid number.</span></div>
+                </div>
+            </div>
+            <button type="submit" ng-click="nextAction()" class="btn btn-primary btn-lg btn-block">Next</button>
+        </form>
+    </div>
+</div>
