@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="temp_arrival.arrival_order_lines")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArrivalOrderLineRepository")
  */
-class ArrivalOrderLine
+class ArrivalOrderLine implements \JsonSerializable
 {
     /**
      * @var int
@@ -20,7 +20,6 @@ class ArrivalOrderLine
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
 
     /**
      * @var string
@@ -37,13 +36,27 @@ class ArrivalOrderLine
      */
     private $notes;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="arrivalorder_id", type="integer")
-     */
-    private $arrivalOrderId;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ArrivalOrder")
+     */
+    private $arrivalorder;
+
+    /**
+     * @return mixed
+     */
+    public function getArrivalorder()
+    {
+        return $this->arrivalorder;
+    }
+
+    /**
+     * @param mixed $arrivalorder
+     */
+    public function setArrivalorder($arrivalorder)
+    {
+        $this->arrivalorder = $arrivalorder;
+    }
 
     /**
      * Get id
@@ -105,28 +118,16 @@ class ArrivalOrderLine
         return $this->notes;
     }
 
-    /**
-     * Set arrivalorderId
-     *
-     * @param guid $arrivalOrderId
-     *
-     * @return ArrivalOrderLine
-     */
-    public function setArrivalOrderId($arrivalOrderId)
-    {
-        $this->arrivalOrderId = $arrivalOrderId;
 
-        return $this;
-    }
-
-    /**
-     * Get arrivalorderId
-     *
-     * @return int
-     */
-    public function getArrivalOrderId()
+    public function jsonSerialize()
     {
-        return $this->arrivalorderId;
+        return array(
+            'id' => $this->id,
+            'kidName' => $this->kidName,
+            'notes' => $this->notes,
+            'arrivalorderId' => $this->arrivalorderId,
+
+        );
     }
 }
 

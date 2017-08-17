@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * ArrivalOrder
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="temp_arrival.arrival_orders")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArrivalOrderRepository")
  */
-class ArrivalOrder
+class ArrivalOrder implements \JsonSerializable
 {
     /**
      * @var int
@@ -45,10 +46,14 @@ class ArrivalOrder
     /**
      * @var string
      *
-     * @ORM\Column(name="notes", type="text")
+     * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
 
+    public function __construct()
+    {
+//        $this->lines = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -155,6 +160,36 @@ class ArrivalOrder
     public function getNotes()
     {
         return $this->notes;
+    }
+
+
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getLines()
+    {
+        return $this->lines;
+    }
+
+    /**
+     * @param ArrayCollection $lines
+     */
+    public function setLines($lines)
+    {
+        $this->lines = $lines;
+    }
+
+
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->id,
+            'orderDate'=> $this->orderDate->format(\DateTime::ISO8601),
+            'deliveryPerson'=> $this->deliveryPerson,
+            'deliveryPersonMobile'=> $this->deliveryPersonMobile,
+            'notes'=> $this->notes,
+        );
     }
 }
 
