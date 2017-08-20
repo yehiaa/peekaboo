@@ -16,7 +16,7 @@
                 <td>{{ kid.name }}</td>
                 <td>{{ kid.notes }}</td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm" ng-click="editKid(kid)">Edit</button>
+                    <!-- <button type="button" class="btn btn-primary btn-sm" ng-click="editKid(kid)">Edit</button> -->
                     <button type="button" class="btn btn-danger btn-sm" ng-click="removeKid(kid)">Remove</button>
                 </td>
             </tr>
@@ -45,7 +45,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary" ng-click="saveKid()">Save</button>
                     <hr>
-                    <button type="submit" class="btn btn-danger btn-lg btn-block" ng-click="confirm()">Confirm</button>
+                    <button type="button" class="btn btn-danger btn-lg btn-block" ng-click="confirm()" ng-disabled="! activateConfirm()">{{ message }}</button>
                 </form>
             </div>
         </div>

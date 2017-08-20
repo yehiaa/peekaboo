@@ -18,7 +18,12 @@ ArrivalApp.factory('arrivalOrderData', function (){
        setDefault: function () {
            this.kids = [];
            this.deliveryPerson = {name: "", mobile:''};
-       }
+       },
+       validate: function () {
+           if (this.kids && this.kids.length > 0 && this.deliveryPerson.name && this.deliveryPerson.mobile)
+                return true;
+            return false ;
+       },
    }
 });
 
@@ -43,6 +48,7 @@ ArrivalApp.controller('stepOneController', function ($scope, $location, arrivalO
 ArrivalApp.controller('stepTwoController', function ($scope, $http, $location, arrivalOrderData, getKids) {
     $scope.kids = [];
     $scope.kidName = "";
+    $scope.message = "Confirm";
     $scope.kidLastName = "";
 
     $scope.kidNotes = "";
@@ -72,13 +78,23 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location, a
         $scope.kidNotes = "";
     };
 
+    $scope.activateConfirm = function () {
+        return arrivalOrderData.validate();
+    }
+
     $scope.confirm = function (){
-        //todo validate data, show success of failure
+        //todo validate data, show success or failure
+
+        if (! arrivalOrderData.validate()) {
+            $scope.message = "Invalid data ...";
+            return ;
+        }
+
         var save = $http.post('/save', arrivalOrderData);
         save.then(function (result) {
             $location.path('/');
             arrivalOrderData.setDefault();
-        })
+        });
     };
 
 });
