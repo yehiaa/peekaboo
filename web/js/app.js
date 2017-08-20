@@ -14,7 +14,11 @@ ArrivalApp.config(function($routeProvider){
 ArrivalApp.factory('arrivalOrderData', function (){
    return {
        deliveryPerson: {name: "", mobile:''},
-       kids:[]
+       kids:[],
+       setDefault: function () {
+           this.kids = [];
+           this.deliveryPerson = {name: "", mobile:''};
+       }
    }
 });
 
@@ -36,7 +40,7 @@ ArrivalApp.controller('stepOneController', function ($scope, $location, arrivalO
 });
 
 
-ArrivalApp.controller('stepTwoController', function ($scope, $http, arrivalOrderData, getKids) {
+ArrivalApp.controller('stepTwoController', function ($scope, $http, $location, arrivalOrderData, getKids) {
     $scope.kids = [];
     $scope.kidName = "";
     $scope.kidLastName = "";
@@ -71,6 +75,10 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, arrivalOrder
     $scope.confirm = function (){
         //todo validate data, show success of failure
         var save = $http.post('/save', arrivalOrderData);
+        save.then(function (result) {
+            $location.path('/');
+            arrivalOrderData.setDefault();
+        })
     };
 
 });
