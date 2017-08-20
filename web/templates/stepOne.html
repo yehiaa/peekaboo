@@ -24,13 +24,13 @@
                        ng-minlength="11"
                        ng-maxlength="11"
                        autocomplete="off"
-                       ng-pattern="/^0[1-9]{10,10}$/;"
+                       ng-pattern="/^01[0-2]\d{8,8}$/"
                        required="">
                 <div ng-show="deliverPersonForm.$submitted || deliverPersonForm.mobile.$touched">
                     <div ng-show="deliverPersonForm.mobile.$error.required"><span class="text-danger">Your mobile is required.</span></div>
                     <div ng-show="deliverPersonForm.mobile.$error.maxlength"><span class="text-danger">too long.</span></div>
                     <div ng-show="deliverPersonForm.mobile.$error.minlength"><span class="text-danger">too short.</span></div>
-                    <div ng-show="deliverPersonForm.mobile.$error.pattern"><span class="text-danger">invalid number.</span></div>
+                    <div ng-show="deliverPersonForm.mobile.$error.pattern"><span class="text-danger">invalid mobile number.</span></div>
                 </div>
             </div>
             <button type="submit" ng-click="nextAction()" class="btn btn-primary btn-lg btn-block">Next</button>
