@@ -10,6 +10,10 @@ use AppBundle\Entity\ArrivalOrder;
 
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
+use Symfony\Component\HttpFoundation\Response;
+
 class TempArrivalOrderController extends Controller
 {
 
@@ -34,10 +38,16 @@ class TempArrivalOrderController extends Controller
      */
     public function saveAction(Request $request)
     {
-        $em = $this->getDoctrine()
-            ->getManager();
-//        todo validate request
         $data = json_decode($request->getContent(), true);
+
+        $violations = $this->validateStoreData($data);
+        
+        if(count($violations) > 0)
+            return new Response("not valid data ....", 403);
+
+        $em = $this->getDoctrine()
+                    ->getManager();
+
         $deliveryPerson = $data['deliveryPerson'];
         $kids = $data['kids'];
         $arrivalOrder = new ArrivalOrder();
@@ -57,6 +67,28 @@ class TempArrivalOrderController extends Controller
         $em->flush();
 
         return $this->json($arrivalOrder);
+    }
+
+
+    protected function validateStoreData($data)
+    {
+
+        $validator = $this->get('validator');
+        $constraint = new Assert\Collection(array(
+            'deliveryPerson' => new Assert\Collection(array(
+              'name' => new Assert\Length(array('min' => 5)),
+              'mobile' => new Assert\Length(array('min' => 11)),
+            )),
+
+            'kids' => new Assert\Collection(array(
+              new Assert\Collection( array( 
+                'name' => new Assert\Length(array('min' => 5)),
+                'notes' => new Assert\Length(array('min' => 0))
+                ))
+            ))
+        ));
+
+        return $validator->validate($data, $constraint);
     }
 
 
