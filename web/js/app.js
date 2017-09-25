@@ -48,7 +48,7 @@ ArrivalApp.controller('stepOneController', function ($scope, $location, arrivalO
 ArrivalApp.controller('stepTwoController', function ($scope, $http, $location, arrivalOrderData, getKids) {
     $scope.kids = [];
     $scope.kidName = "";
-    $scope.message = "Confirm";
+    $scope.message = "Confirm & save";
     $scope.kidLastName = "";
 
     $scope.kidNotes = "";

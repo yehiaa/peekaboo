@@ -28,9 +28,9 @@
                        required="">
                 <div ng-show="deliverPersonForm.$submitted || deliverPersonForm.mobile.$touched">
                     <div ng-show="deliverPersonForm.mobile.$error.required"><span class="text-danger">Your mobile is required.</span></div>
-                    <div ng-show="deliverPersonForm.mobile.$error.maxlength"><span class="text-danger">too long.</span></div>
-                    <div ng-show="deliverPersonForm.mobile.$error.minlength"><span class="text-danger">too short.</span></div>
-                    <div ng-show="deliverPersonForm.mobile.$error.pattern"><span class="text-danger">invalid mobile number.</span></div>
+                    <div ng-show="deliverPersonForm.mobile.$error.maxlength"><span class="text-danger">Too long.</span></div>
+                    <div ng-show="deliverPersonForm.mobile.$error.minlength"><span class="text-danger">Too short.</span></div>
+                    <div ng-show="deliverPersonForm.mobile.$error.pattern"><span class="text-danger">Invalid mobile number.</span></div>
                 </div>
             </div>
             <button type="submit" ng-click="nextAction()" class="btn btn-primary btn-lg btn-block">Next</button>
