@@ -1,4 +1,4 @@
-var ArrivalApp = angular.module('arrivalApp', ['ngRoute']);
+var ArrivalApp = angular.module('arrivalApp', ['ngRoute', 'ivh.treeview']);
 
 ArrivalApp.config(function($routeProvider){
     $routeProvider
@@ -45,8 +45,13 @@ ArrivalApp.controller('stepOneController', function ($scope, $location, arrivalO
 });
 
 
-ArrivalApp.controller('stepTwoController', function ($scope, $http, $location, arrivalOrderData, getKids) {
+ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
+                                                     ivhTreeviewMgr, arrivalOrderData, 
+                                                     getKids) {
+
+    $scope.productCategories = JSON.parse(JSON.stringify(productCategories));
     $scope.kids = [];
+    $scope.selectedProductCategoryIds = [];
     $scope.kidName = "";
     $scope.message = "Confirm & save";
     $scope.kidLastName = "";
@@ -62,6 +67,35 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location, a
             });
     }
 
+    var addToSelected = function (item) {
+        var index = $scope.selectedProductCategoryIds.indexOf(item.id);
+        if (index === -1) $scope.selectedProductCategoryIds.push(item.id);
+        if (item.children.length > 0) {
+            item.children.forEach(function (childItem) {
+                addToSelected(childItem);
+            });
+        }
+    }
+
+    var removeFromSelected = function (item) {
+        var index = $scope.selectedProductCategoryIds.indexOf(item.id);
+        if (index !== -1) $scope.selectedProductCategoryIds.splice(index, 1);
+        if (item.children.length > 0) {
+            item.children.forEach(function (childItem) {
+                removeFromSelected(childItem);
+            });
+        }
+    }
+
+    $scope.selectChangeCallback = function (node) {
+        if (node.selected) {
+            addToSelected(node);
+        }else{
+            removeFromSelected(node);
+        }
+    }
+
+
     $scope.removeKid = function (kid){
         $scope.kids.splice($scope.kids.indexOf(kid), 1);
     };
@@ -73,9 +107,14 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location, a
     $scope.saveKid = function (){
         if (! $scope.kidForm.$valid)
             return;
-        $scope.kids.push({name: $scope.kidName, notes:$scope.kidNotes});
+        $scope.kids.push({name: $scope.kidName, 
+            notes:$scope.kidNotes, 
+            allowedCategoriesIds: $scope.selectedProductCategoryIds});
+
         $scope.kidName = "";
         $scope.kidNotes = "";
+        $scope.selectedProductCategoryIds = [];
+        $scope.productCategories = JSON.parse(JSON.stringify(productCategories));
     };
 
     $scope.activateConfirm = function () {

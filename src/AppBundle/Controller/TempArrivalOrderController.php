@@ -29,7 +29,20 @@ class TempArrivalOrderController extends Controller
      */
     public function createAction()
     {
-        return $this->render('@App/TempArrivalOrder/create.html.twig');
+        $productCategoriesRepository = $this->getDoctrine()
+                                            ->getManager()
+                                            ->getRepository(
+                                                \AppBundle\Entity\ProductCategory::class
+                                            );
+
+        $productCategories = $productCategoriesRepository->findBy([
+                                                            'parent' => null,
+                                                            'special' => false
+                                                            ]);
+        return $this->render(
+            '@App/TempArrivalOrder/create.html.twig',
+            ['productCategories' => $productCategories]
+            );
     }
 
 
@@ -40,10 +53,11 @@ class TempArrivalOrderController extends Controller
     {
         $data = json_decode($request->getContent(), true);
 
-        $violations = $this->validateStoreData($data);
+        $errors = $this->validateData($data);
         
-        if(count($violations) > 0)
-            return new Response("not valid data ....", 403);
+        if(count($errors) > 0)
+            // return new Response($errors, 403);
+            return $this->json($errors, 403);
 
         $em = $this->getDoctrine()
                     ->getManager();
@@ -59,6 +73,7 @@ class TempArrivalOrderController extends Controller
             $line = new ArrivalOrderLine();
             $line->setKidName($kid['name']);
             $line->setNotes(isset($kid['notes']) ? $kid['notes'] : "");
+            $line->setAllowedCategories(isset($kid['allowedCategoriesIds']) ? $kid['allowedCategoriesIds'] : []);
             $line->setArrivalorder($arrivalOrder);
             $em->persist($line);
         }
@@ -69,26 +84,53 @@ class TempArrivalOrderController extends Controller
         return $this->json($arrivalOrder);
     }
 
-
-    protected function validateStoreData($data)
+    
+    protected function validateData($data)
     {
+        $errors = [];
+        if (!isset($data['deliveryPerson']) || ! isset($data['kids']) ) {
+            return $errors [] = 'invalid data given, delivery person or kids not provided' ;
+        }
 
+        $deliveryPersonViolations = $this->validateDeliveryPerson($data['deliveryPerson']);
+        foreach ($deliveryPersonViolations as $constraintViolation) {
+            $errors [] = $constraintViolation->getMessage();
+        }
+        
+        foreach ($data['kids'] as $kid) {
+            foreach($this->validateKids($kid) as $violation)
+            {
+                $errors [] = $violation->getMessage();
+            }
+        }
+
+        return $errors;
+
+    }    
+
+
+    protected function validateDeliveryPerson($deliveryPersonData)
+    {
         $validator = $this->get('validator');
         $constraint = new Assert\Collection(array(
-            'deliveryPerson' => new Assert\Collection(array(
               'name' => new Assert\Length(array('min' => 5)),
               'mobile' => new Assert\Length(array('min' => 11)),
-            )),
-
-            'kids' => new Assert\Collection(array(
-              new Assert\Collection( array( 
-                'name' => new Assert\Length(array('min' => 5)),
-                'notes' => new Assert\Length(array('min' => 0))
-                ))
-            ))
         ));
 
-        return $validator->validate($data, $constraint);
+        return $validator->validate($deliveryPersonData, $constraint);
+    }
+
+
+    protected function validateKids($kidsData)
+    {
+        $validator = $this->get('validator');
+        $constraint = new Assert\Collection(array(
+            'name' => new Assert\Length(array('min' => 5)),
+            'notes' => new Assert\Length(array('min' => 0)),
+            'allowedCategoriesIds' => new Assert\Type(['type'=>'array'])
+        ));
+
+        return $validator->validate($kidsData, $constraint);
     }
 
 
@@ -97,7 +139,7 @@ class TempArrivalOrderController extends Controller
      */
     public function kidsByMobileAction($mobile)
     {
-//        todo create a service ..
+        // todo create a service ..
         $kidsDataStore = new KidManagementDataSource( $this->getDoctrine()->getManager() );
         $kids = $kidsDataStore::getKidsByDeliveryPersonMobile($mobile);
         return $this->json($kids);

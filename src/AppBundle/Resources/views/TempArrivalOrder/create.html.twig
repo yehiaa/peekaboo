@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" 
+href="/node_modules/angular-ivh-treeview/dist/ivh-treeview.min.css">
+{% endblock %}
+
 {% block body %}
     {% verbatim %}
 <div class="row" ng-app="arrivalApp">
@@ -11,5 +16,9 @@
 {% endblock %}
 
 {% block javascripts %}
+<script>
+    var productCategories = {{ productCategories|json_encode|raw }};
+</script>
+<script src="/node_modules/angular-ivh-treeview/dist/ivh-treeview.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 {% endblock %}

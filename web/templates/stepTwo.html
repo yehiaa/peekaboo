@@ -39,6 +39,19 @@
                             <div ng-show="kidForm.kidName.$error.minlength"><span class="text-danger">Too small.</span></div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label>Allowed categories</label>
+                        <div ivh-treeview="productCategories"
+                             ivh-treeview-use-checkboxes="true"
+                             ivh-treeview-id-attribute="'id'"
+                             ivh-treeview-label-attribute="'name'"
+                             ivh-treeview-on-cb-change="selectChangeCallback(ivhNode)"
+                             ivh-treeview-default-selected-state="false">
+
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="notes">Notes</label>
                         <textarea class="form-control" id="notes" name="notes" ng-model='kidNotes' placeholder="notes"></textarea>

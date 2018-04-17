@@ -43,7 +43,12 @@ class ArrivalOrderLine implements \JsonSerializable
     private $arrivalorder;
 
     /**
-     * @return mixed
+     * @ORM\Column(name="allowedCategories", type="json_array", nullable=true)
+     */
+    private $allowedCategories;
+
+    /**
+     * @return arrivalorder
      */
     public function getArrivalorder()
     {
@@ -51,11 +56,20 @@ class ArrivalOrderLine implements \JsonSerializable
     }
 
     /**
-     * @param mixed $arrivalorder
+     * @param void
      */
     public function setArrivalorder($arrivalorder)
     {
         $this->arrivalorder = $arrivalorder;
+    }
+
+
+    /**
+     * @param void
+     */
+    public function setAllowedCategories($allowedCategories)
+    {
+        $this->allowedCategories = $allowedCategories;
     }
 
     /**
