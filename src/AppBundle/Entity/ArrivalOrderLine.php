@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ArrivalOrderLine
  *
- * @ORM\Table(name="temp_arrival.arrival_order_lines")
+ * @ORM\Table(name="arrival_order_lines")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArrivalOrderLineRepository")
  */
 class ArrivalOrderLine implements \JsonSerializable

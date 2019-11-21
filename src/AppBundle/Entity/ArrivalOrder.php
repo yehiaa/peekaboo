@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * ArrivalOrder
  *
- * @ORM\Table(name="temp_arrival.arrival_orders")
+ * @ORM\Table(name="arrival_orders")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArrivalOrderRepository")
  */
 class ArrivalOrder implements \JsonSerializable

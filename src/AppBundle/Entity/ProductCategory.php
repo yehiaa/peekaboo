@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * ProductCategory
  *
- * @ORM\Table(name="inventory.product_categories")
+ * @ORM\Table(name="product_categories")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductCategoryRepository")
  */
 class ProductCategory implements \JsonSerializable
