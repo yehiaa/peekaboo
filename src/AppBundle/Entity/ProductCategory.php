@@ -16,9 +16,9 @@ class ProductCategory implements \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="id", type="guid")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="auto")
      */
     private $id;
 

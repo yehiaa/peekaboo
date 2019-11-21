@@ -30,7 +30,7 @@ class KidManagementDataSource
 
         $conn = self::$em->getConnection();
         $sql = "select distinct lower(BTRIM(kidname)) as name from arrival_order_lines where arrivalorder_id in (
-                        select id from kid_management.arrival_orders where trim(deliverypersonmobile) like trim(:mobile) 
+                        select id from arrival_orders where trim(deliverypersonmobile) like trim(:mobile) 
                 ) order by name" ;
         $stmt = $conn->prepare($sql);
         $stmt->bindValue("mobile", '%' .$deliveryPersonMobile . '%');
