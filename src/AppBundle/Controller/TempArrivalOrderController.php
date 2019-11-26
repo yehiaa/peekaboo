@@ -72,6 +72,7 @@ class TempArrivalOrderController extends Controller
         foreach ($kids as $kid){
             $line = new ArrivalOrderLine();
             $line->setKidName($kid['name']);
+            $line->setItem($kid['item']);
             $line->setNotes(isset($kid['notes']) ? $kid['notes'] : "");
             $line->setAllowedCategories(isset($kid['allowedCategoriesIds']) ? $kid['allowedCategoriesIds'] : []);
             $line->setArrivalorder($arrivalOrder);
@@ -127,6 +128,7 @@ class TempArrivalOrderController extends Controller
         $constraint = new Assert\Collection(array(
             'name' => new Assert\Length(array('min' => 5)),
             'notes' => new Assert\Length(array('min' => 0)),
+            'item' => new Assert\Range(array('min' => 1, 'max' => 4)),
             'allowedCategoriesIds' => new Assert\Type(['type'=>'array'])
         ));
 

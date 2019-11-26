@@ -107,9 +107,12 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
     $scope.saveKid = function (){
         if (! $scope.kidForm.$valid)
             return;
-        $scope.kids.push({name: $scope.kidName, 
-            notes:$scope.kidNotes, 
-            allowedCategoriesIds: $scope.selectedProductCategoryIds});
+        $scope.kids.push({
+            name: $scope.kidName, 
+            notes: $scope.kidNotes,
+            item: $scope.item,
+            allowedCategoriesIds: $scope.selectedProductCategoryIds
+        });
 
         $scope.kidName = "";
         $scope.kidNotes = "";

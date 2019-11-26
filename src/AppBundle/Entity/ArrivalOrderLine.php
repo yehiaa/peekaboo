@@ -42,6 +42,12 @@ class ArrivalOrderLine implements \JsonSerializable
      */
     private $arrivalorder;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Item")
+     */
+    private $item;
+
     /**
      * @ORM\Column(name="allowedCategories", type="json_array", nullable=true)
      */
@@ -61,6 +67,23 @@ class ArrivalOrderLine implements \JsonSerializable
     public function setArrivalorder($arrivalorder)
     {
         $this->arrivalorder = $arrivalorder;
+    }
+
+
+    /**
+     * @return Item
+     */
+    public function getItem()
+    {
+        return $this->item;
+    }
+
+    /**
+     * @param void
+     */
+    public function setItem($item)
+    {
+        $this->item = $item;
     }
 
 
@@ -139,8 +162,8 @@ class ArrivalOrderLine implements \JsonSerializable
             'id' => $this->id,
             'kidName' => $this->kidName,
             'notes' => $this->notes,
+            'item' => $this->item,
             'arrivalorderId' => $this->arrivalorderId,
-
         );
     }
 }
