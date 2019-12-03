@@ -34,7 +34,7 @@
                                name="kidName"
                                aria-describedby="kidNameHelp" placeholder="kid name" required="">
                         <small id="kidNameHelp" class="form-text text-muted">kid name</small>
-                        <div ng-show="kidForm.$submitted || kidForm.kidName.$touched ">
+                        <div ng-show="kidForm.$submitted">
                             <div ng-show="kidForm.kidName.$error.required"><span class="text-danger">Kid name is required.</span></div>
                             <div ng-show="kidForm.kidName.$error.minlength"><span class="text-danger">Too small.</span></div>
                         </div>
