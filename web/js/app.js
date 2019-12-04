@@ -53,6 +53,7 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
     $scope.kids = [];
     $scope.selectedProductCategoryIds = [];
     $scope.kidName = "";
+    $scope.item = 0;
     $scope.message = "Confirm & save";
     $scope.kidLastName = "";
 
@@ -116,6 +117,7 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
 
         $scope.kidName = "";
         $scope.kidNotes = "";
+        $scope.item = 0;
         $scope.selectedProductCategoryIds = [];
         $scope.productCategories = JSON.parse(JSON.stringify(productCategories));
     };

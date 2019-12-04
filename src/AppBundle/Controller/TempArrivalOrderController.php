@@ -69,10 +69,17 @@ class TempArrivalOrderController extends Controller
         $arrivalOrder->setDeliveryPersonMobile($deliveryPerson['mobile']);
         $arrivalOrder->setOrderDate(new \DateTime());
 
+
+        $itemRepository = $this->getDoctrine()
+                                ->getManager()
+                                ->getRepository(\AppBundle\Entity\Item::class);
+
         foreach ($kids as $kid){
+            $item = $itemRepository->find($kid['item']);
+
             $line = new ArrivalOrderLine();
             $line->setKidName($kid['name']);
-            $line->setItem($kid['item']);
+            $line->setItem($item);
             $line->setNotes(isset($kid['notes']) ? $kid['notes'] : "");
             $line->setAllowedCategories(isset($kid['allowedCategoriesIds']) ? $kid['allowedCategoriesIds'] : []);
             $line->setArrivalorder($arrivalOrder);
