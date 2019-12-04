@@ -53,25 +53,16 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
     $scope.kids = [];
     $scope.selectedProductCategoryIds = [];
     $scope.kidName = "";
-    $scope.selectedItem = null;
     $scope.items = [
         {id:1,label:'Individual Activity (75)'},
         {id:2,label:'2 Activities package (150)'},
         {id:3,label:'4 Activities package (250)'},
         {id:4,label:'6 Activities package (350)'}];
 
+    $scope.selectedItem = $scope.items[0];
     $scope.message = "Confirm & save";
     $scope.kidNotes = "";
 
-    if(arrivalOrderData.deliveryPerson.mobile){
-        //Option deprecated, due to change request..
-        return false;
-        getKids(arrivalOrderData.deliveryPerson.mobile)
-            .then(function(response){
-                arrivalOrderData.kids = response.data;
-                $scope.kids = response.data;
-            });
-    }
 
     var addToSelected = function (item) {
         var index = $scope.selectedProductCategoryIds.indexOf(item.id);
@@ -113,17 +104,21 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
     $scope.saveKid = function (){
         if (! $scope.kidForm.$valid)
             return;
-        $scope.kids.push({
+
+        var kid = {
             name: $scope.kidName, 
             notes: $scope.kidNotes,
             item: $scope.selectedItem.id,
             itemName: $scope.selectedItem.label,
-            allowedCategoriesIds: $scope.selectedProductCategoryIds
-        });
+            allowedCategoriesIds: $scope.selectedProductCategoryIds};
+        
+        $scope.kids.push(kid);
+
+        arrivalOrderData.kids = $scope.kids;
 
         $scope.kidName = "";
         $scope.kidNotes = "";
-        $scope.selectedItem = null;
+        $scope.selectedItem = $scope.items[0];
         $scope.itemName = "";
         $scope.selectedProductCategoryIds = [];
         $scope.productCategories = JSON.parse(JSON.stringify(productCategories));

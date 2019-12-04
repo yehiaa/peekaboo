@@ -134,6 +134,7 @@ class TempArrivalOrderController extends Controller
             'name' => new Assert\Length(array('min' => 5)),
             'notes' => new Assert\Length(array('min' => 0)),
             'item' => new Assert\Range(array('min' => 1, 'max' => 4)),
+            'itemName' => new Assert\Length(array('min' => 0)),
             'allowedCategoriesIds' => new Assert\Type(['type'=>'array'])
         ));
 
