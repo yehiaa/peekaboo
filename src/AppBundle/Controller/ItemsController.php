@@ -17,7 +17,7 @@ class ItemsController extends Controller
     {
         $itemsRepository = $this->getDoctrine()
                                 ->getManager()
-                                ->getRepository(\AppBundle\Entity\ItemsController::class);
+                                ->getRepository(\AppBundle\Entity\Item::class);
 
         $items = $itemsRepository->findAll();
         return $this->json(['items'=> $items]);

@@ -1,0 +1,66 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Mobile</th>
+              <th scope="col">Kids</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <th scope="row">1</th>
+              <td>{{ order.deliveryPerson }}</td>
+              <td>{{ order.deliveryPersonMobile }}</td>
+              <td>
+              
+
+              <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Item</th>
+                      <th scope="col">Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for line in order.lines %}
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>{{ line.kidName }}</td>
+                      <td>{{ line.item.name }} | {{ line.item.price }}</td>
+                      <td>{{ line.notes }}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody>
+            </table>
+
+              </td>
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    var productCategories = {{ productCategories|json_encode|raw }};
+</script>
+<script src="/node_modules/angular-ivh-treeview/dist/ivh-treeview.min.js"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}
