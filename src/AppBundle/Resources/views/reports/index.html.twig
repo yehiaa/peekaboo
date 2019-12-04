@@ -37,7 +37,8 @@
                     <tr>
                       <th scope="row">{{ loop.index }}</th>
                       <td>{{ line.kidName }}</td>
-                      <td>{{ line.item.name }} | {{ line.item.price }}</td>
+
+                      <td>{% if line.item %} {{ line.item.name }} | {{ line.item.price }} {% else %} N/A {% endif %}</td>
                       <td>{{ line.notes }}</td>
                     </tr>
                     {% endfor %}
@@ -57,9 +58,4 @@
 {% endblock %}
 
 {% block javascripts %}
-<script>
-    var productCategories = {{ productCategories|json_encode|raw }};
-</script>
-<script src="/node_modules/angular-ivh-treeview/dist/ivh-treeview.min.js"></script>
-<script src="{{ asset('js/app.js') }}"></script>
 {% endblock %}
