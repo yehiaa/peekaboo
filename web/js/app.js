@@ -53,14 +53,19 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
     $scope.kids = [];
     $scope.selectedProductCategoryIds = [];
     $scope.kidName = "";
-    $scope.item = 0;
-    $scope.message = "Confirm & save";
-    $scope.kidLastName = "";
+    $scope.selectedItem = null;
+    $scope.items = [
+        {id:1,label:'Individual Activity (75)'},
+        {id:2,label:'2 Activities package (150)'},
+        {id:3,label:'4 Activities package (250)'},
+        {id:4,label:'6 Activities package (350)'}];
 
+    $scope.message = "Confirm & save";
     $scope.kidNotes = "";
 
     if(arrivalOrderData.deliveryPerson.mobile){
-
+        //Option deprecated, due to change request..
+        return false;
         getKids(arrivalOrderData.deliveryPerson.mobile)
             .then(function(response){
                 arrivalOrderData.kids = response.data;
@@ -111,13 +116,15 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
         $scope.kids.push({
             name: $scope.kidName, 
             notes: $scope.kidNotes,
-            item: $scope.item,
+            item: $scope.selectedItem.id,
+            itemName: $scope.selectedItem.label,
             allowedCategoriesIds: $scope.selectedProductCategoryIds
         });
 
         $scope.kidName = "";
         $scope.kidNotes = "";
-        $scope.item = 0;
+        $scope.selectedItem = null;
+        $scope.itemName = "";
         $scope.selectedProductCategoryIds = [];
         $scope.productCategories = JSON.parse(JSON.stringify(productCategories));
     };

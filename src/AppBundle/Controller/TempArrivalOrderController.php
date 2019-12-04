@@ -70,9 +70,7 @@ class TempArrivalOrderController extends Controller
         $arrivalOrder->setOrderDate(new \DateTime());
 
 
-        $itemRepository = $this->getDoctrine()
-                                ->getManager()
-                                ->getRepository(\AppBundle\Entity\Item::class);
+        $itemRepository = $em->getRepository(\AppBundle\Entity\Item::class);
 
         foreach ($kids as $kid){
             $item = $itemRepository->find($kid['item']);
