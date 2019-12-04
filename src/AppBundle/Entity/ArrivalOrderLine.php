@@ -38,7 +38,7 @@ class ArrivalOrderLine implements \JsonSerializable
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ArrivalOrder")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ArrivalOrder", inversedBy="lines")
      */
     private $arrivalorder;
 

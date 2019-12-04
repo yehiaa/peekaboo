@@ -18,11 +18,10 @@
           <tbody>
             {% for order in orders %}
             <tr>
-              <th scope="row">1</th>
+              <th scope="row">{{ loop.index }}</th>
               <td>{{ order.deliveryPerson }}</td>
               <td>{{ order.deliveryPersonMobile }}</td>
               <td>
-              
 
               <table class="table">
                   <thead class="thead-dark">
@@ -36,7 +35,7 @@
                   <tbody>
                     {% for line in order.lines %}
                     <tr>
-                      <th scope="row">1</th>
+                      <th scope="row">{{ loop.index }}</th>
                       <td>{{ line.kidName }}</td>
                       <td>{{ line.item.name }} | {{ line.item.price }}</td>
                       <td>{{ line.notes }}</td>

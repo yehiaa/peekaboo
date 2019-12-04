@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use ArrivalOrderLine;
 
 /**
  * ArrivalOrder
@@ -50,9 +51,16 @@ class ArrivalOrder implements \JsonSerializable
      */
     private $notes;
 
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ArrivalOrderLine", mappedBy="arrivalorder")
+     */
+    private $lines;
+
     public function __construct()
     {
-//        $this->lines = new ArrayCollection();
+       $this->lines = new ArrayCollection();
     }
 
     /**
