@@ -15,9 +15,9 @@ class ArrivalOrderRepository extends \Doctrine\ORM\EntityRepository
         $start = (new \DateTime($date->format('Y-m-d') . '00:00:00'));
         $end = (new \DateTime($date->format('Y-m-d') . '23:59:59'));
 
-        $qb = $this->getQueryBuilder('e');
+        $qb = $this->createQueryBuilder('e');
 
-        $qb = $qb->andWhere('e.orderdate between :start and :end')
+        $qb = $qb->andWhere('e.orderDate between :start and :end')
         ->setParameter('start', $start)
         ->setParameter('end', $end);
 
