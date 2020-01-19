@@ -6,6 +6,11 @@
 {% block body %}
 <div class="row">
     <div class="col-12">
+      <legend>Selected Date</legend>
+        <form action="">
+        <input type="date" value="{{ $delectedDate|date("Y-m-d") }}">
+        <button>Show</button>
+        </form>
         <table class="table">
           <thead class="thead-dark">
             <tr>

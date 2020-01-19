@@ -13,16 +13,33 @@ class ReportsController extends Controller
     /**
      * @Route("/reports")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $ordersRepository = $this->getDoctrine()
                                 ->getManager()
                                 ->getRepository(\AppBundle\Entity\ArrivalOrder::class);
 
-        $orders = $ordersRepository->findAll();
+        $selectedDate = $this->getSelectedDate($request->get('selectedDate'));
+
+        $orders = $ordersRepository->findByOrderDate($selectedDate);
+
         return $this->render(
             '@App/reports/index.html.twig',
-            ['orders' => $orders]
+            ['orders' => $orders, 'selectedDate'=>$selectedDate]
             );
+    }
+
+
+    protected function getSelectedDate($input) : \DateTime
+    {
+        try {
+            if ($input) {
+                return new \DateTime($input);
+            }
+        } catch (\Exception $e) {
+            
+        }
+
+        return new \DateTime();
     }
 }

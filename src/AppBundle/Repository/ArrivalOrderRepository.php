@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class ArrivalOrderRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByOrderDate(\DateTime $date)
+    {
+        $start = (new \DateTime($date->format('Y-m-d') . '00:00:00'));
+        $end = (new \DateTime($date->format('Y-m-d') . '23:59:59'));
+
+        $qb = $this->getQueryBuilder('e');
+
+        $qb = $qb->andWhere('e.orderdate between :start and :end')
+        ->setParameter('start', $start)
+        ->setParameter('end', $end);
+
+        return $qb->getQuery()->getResult();
+    }
 }
