@@ -135,7 +135,8 @@ class TempArrivalOrderController extends Controller
             'notes' => new Assert\Length(array('min' => 0)),
             'item' => new Assert\Range(array('min' => 1, 'max' => 4)),
             'itemName' => new Assert\Length(array('min' => 0)),
-            'allowedCategoriesIds' => new Assert\Type(['type'=>'array'])
+            'itemPrice' => new Assert\Type(array('type' => 'integer')),
+            'allowedCategoriesIds' => new Assert\Type(array('type'=>'array'))
         ));
 
         return $validator->validate($kidsData, $constraint);

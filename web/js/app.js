@@ -102,12 +102,12 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
     };
 
 
-    $scope.$watch('kids', function () {
+    $scope.$watch('kids', function (newVal, oldVal) {
         $scope.totalPrice = 0;
         $scope.kids.forEach(function (kid) {
             $scope.totalPrice += kid.itemPrice;
         })
-    })
+    }, true)
 
     $scope.saveKid = function (){
         if (! $scope.kidForm.$valid)
