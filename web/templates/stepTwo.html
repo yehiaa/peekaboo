@@ -69,6 +69,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary" ng-click="saveKid()">Add</button>
                     <hr>
+                    <div class="row">
+                        <div class="col-md-12"><em>Total : {{ totalPrice }}</em></div>
+                    </div>
                     <button type="button" class="btn btn-danger btn-lg btn-block" ng-click="confirm()" ng-disabled="! activateConfirm()">{{ message }}</button>
                 </form>
             </div>

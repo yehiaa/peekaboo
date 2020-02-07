@@ -21,6 +21,7 @@
             </tr>
           </thead>
           <tbody>
+            {% set totalPrice = 0 %}
             {% for order in orders %}
             <tr>
               <th scope="row">{{ loop.index }}</th>
@@ -39,6 +40,7 @@
                   </thead>
                   <tbody>
                     {% for line in order.lines %}
+                    {% set totalPrice = totalPrice + line.item.price %}
                     <tr>
                       <th scope="row">{{ loop.index }}</th>
                       <td>{{ line.kidName }}</td>
@@ -59,6 +61,10 @@
         </table>
 
     </div>
+</div>
+
+<div class="row">
+  <div class="col-12">Total  <em>{{ totalPrice }}</em></div>
 </div>
 {% endblock %}
 

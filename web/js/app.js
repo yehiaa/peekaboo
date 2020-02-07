@@ -54,10 +54,10 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
     $scope.selectedProductCategoryIds = [];
     $scope.kidName = "";
     $scope.items = [
-        {id:1,label:'Individual Activity (75)'},
-        {id:2,label:'2 Activities package (150)'},
-        {id:3,label:'4 Activities package (250)'},
-        {id:4,label:'6 Activities package (350)'}];
+        {id:1,label:'Individual Activity (75)', price: 75},
+        {id:2,label:'2 Activities package (150)', price: 150},
+        {id:3,label:'4 Activities package (250)', price: 250},
+        {id:4,label:'6 Activities package (350)', price: 350}];
 
     $scope.selectedItem = $scope.items[0];
     $scope.message = "Confirm & save";
@@ -101,6 +101,14 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
     //    not implemented yet
     };
 
+
+    $scope.$watch('kids', function () {
+        $scope.totalPrice = 0;
+        $scope.kids.forEach(function (kid) {
+            $scope.totalPrice += kid.itemPrice;
+        })
+    })
+
     $scope.saveKid = function (){
         if (! $scope.kidForm.$valid)
             return;
@@ -110,6 +118,7 @@ ArrivalApp.controller('stepTwoController', function ($scope, $http, $location,
             notes: $scope.kidNotes,
             item: $scope.selectedItem.id,
             itemName: $scope.selectedItem.label,
+            itemPrice: $scope.selectedItem.price,
             allowedCategoriesIds: $scope.selectedProductCategoryIds};
         
         $scope.kids.push(kid);
