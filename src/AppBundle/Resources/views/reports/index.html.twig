@@ -16,6 +16,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Name</th>
+              <th scope="col">Date</th>
               <th scope="col">Mobile</th>
               <th scope="col">Kids</th>
             </tr>
@@ -26,6 +27,7 @@
             <tr>
               <th scope="row">{{ loop.index }}</th>
               <td>{{ order.deliveryPerson }}</td>
+              <td>{{ order.orderDate|date("Y-m-d h:i a") }}</td>
               <td>{{ order.deliveryPersonMobile }}</td>
               <td>
 
